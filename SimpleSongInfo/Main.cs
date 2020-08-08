@@ -1,5 +1,4 @@
 ﻿using MelonLoader;
-using SimpleSongInfo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +12,13 @@ namespace SimpleSongInfo
 {
     public static class BuildInfo
     {
-        public const string Name = "Simple Song Info"; // Name of the Mod.  (MUST BE SET)
+        public const string Name = "Simple Song Info";          // Name of the Mod.  (MUST BE SET)
         public const string ShortName = "SimpleSongInfo";
         public const string Description = "Outputs current song data to files which you can use for a stream overlay."; // Description for the Mod.  (Set as null if none)
-        public const string Author = "Shadnix"; // Author of the Mod.  (Set as null if none)
-        public const string Company = null; // Company that made the Mod.  (Set as null if none)
-        public const string Version = "0.1.0"; // Version of the Mod.  (MUST BE SET)
-        public const string DownloadLink = null; // Download Link for the Mod.  (Set as null if none)
+        public const string Author = "Shadnix";                 // Author of the Mod.  (Set as null if none)
+        public const string Company = null;                     // Company that made the Mod.  (Set as null if none)
+        public const string Version = "1.0.0";                  // Version of the Mod.  (MUST BE SET)
+        public const string DownloadLink = null;                // Download Link for the Mod.  (Set as null if none)
     }
 
     public class Mod : MelonMod
@@ -45,8 +44,6 @@ namespace SimpleSongInfo
         // Gets called on scene change - check for current scene and updates files on disk if neccessary
         public override void OnLevelWasInitialized(int level)
         {
-            // MelonLogger.Log("OnLevelWasInitialized with levelID = " + level.ToString());
-            // MelonLogger.Log("Enumerating active Unity Scenes... - there are " + SceneManager.sceneCount.ToString() + " active scenes.");
 
             // Check if game scene is active
             bool isGameScene = false;
@@ -91,18 +88,6 @@ namespace SimpleSongInfo
                     MelonLogger.LogError("Unable to get song data - quitting!");
                     return;
                 }
-
-                /**
-                string diff = songData.Levels[songManager.CurrentSongLevel].Difficulty.ToString();
-
-                MelonLogger.Log("AlbumSongs_SO found - data is:");
-                MelonLogger.Log("Name: " + songData.Name + " | Author: " + songData.Author + " | Song Length: " + songData.AudioTime.ToString("F0") + " | Difficulty: " + diff);
-                MelonLogger.Log("Speed Multiplier: " + WallDanceUtils.CurrentSpeedMultiplier.ToString("F2") + " | Accuracy Multiplier: " + (1 / WallDanceUtils.CurrentPrecisionMultiplier).ToString("F2"));
-                MelonLogger.Log("Objects speed: " + songManager._objectsSpeed.ToString("F2"));
-                **/
-
-                //MelonLogger.Log("Speed: " + WallDanceUtils.CurrentSongSpeed.ToString("F2"));
-                //MelonLogger.Log("CurrentMulitplier: " + WallDanceUtils.CurrentMultiplier.ToString("F2"));
 
                 // Prepare the data we can output
                 string songAuthor = songData.Author;
