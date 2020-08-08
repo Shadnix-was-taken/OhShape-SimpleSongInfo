@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Overlay</title>
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700,800" rel="stylesheet"> 
+	</head>
+	
+	<body>
+		<style>
+			body {
+				font-family: "Montserrat", sans-serif;
+
+				color: white;
+				/* background: black; */
+
+				margin: 0;
+
+				display: flex;
+				flex-direction: column;
+			}
+
+			#overlay {
+				display: flex;
+				flex-direction: column;
+	
+				position: absolute;
+				left: 40px;
+				bottom: 40px;
+			}
+
+			/* Beatmap */
+
+			#beatmap {
+				display: flex;
+				background: rgba(0, 0, 0, 0.2);
+			}
+
+			#cover {
+				overflow: hidden;
+				border-radius: 6px;
+				position: relative;
+			}
+
+			#image {
+				width: 90px;
+				height: 90px;
+			}
+
+			#meta {
+				display: flex;
+				flex-direction: column;
+
+				flex-grow: 1;
+				padding: 8px 16px;
+			}
+
+			#text {
+				flex-grow: 1;
+
+				/* Fix text offset */
+				transform: translate(0, -5px);
+			}
+
+			#titles {
+				display: flex;
+				align-items: flex-end;
+			}
+
+			#title {
+				font-size: 24px;
+				font-weight: 700;
+			}
+
+			#artist {
+				display: block;
+				font-size: 16px;
+				font-weight: 400;
+				margin: 2px 0 0 0;
+			}
+
+			#difficulty, #bpm, #njs, #acc, #speed {
+				display: inline-block;
+
+				font-size: 10px;
+				font-weight: 800;
+				text-transform: uppercase;
+				letter-spacing: 3px;
+			}
+
+			#difficulty {
+				padding: 4px 5px 4px 8px;
+
+				color: black;
+				background: white;
+				border-radius: 4px;
+			}
+
+			#bpm {
+				margin: 0 8px;
+			}
+
+			#njs {
+				margin: 0 0px;
+			}
+
+			/* Progress */
+
+			#cover svg {
+				transform: rotate(-90deg);
+			}
+
+			#cover div {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+
+				width: 90px;
+				height: 90px;
+			}
+
+			#cover svg, #cover div {
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+
+			#darken {
+				fill: black;
+				opacity: 0.5;
+			}
+		</style>
+
+		<script>
+			function timedRefresh(timeoutPeriod) {
+				setTimeout("location.reload(true);",timeoutPeriod);
+			}
+			window.onload = timedRefresh(2000);
+		</script>
+
+		<div id="overlay" class="hidden">
+			<div id="beatmap">
+				<div id="meta">
+					<div id="text">
+						<div id="titles">
+							<span id="title">%songname%</span>
+						</div>
+
+						<span id="artist">by %songauthor%</span>
+					</div>
+					
+					<div>
+						<span id="difficulty">%difficulty%</span>
+						<span id="acc">&nbsp;Acc: %accuracymultiplier%</span>
+						<span id="speed">- Speed: %speedmultiplier%</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

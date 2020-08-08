@@ -1,0 +1,4 @@
+Title: %songname%
+Author: %songauthor%
+Difficulty: %difficulty% | Object-Speed: %objectspeed%
+Multipliers: Acc @%accuracymultiplier% - Speed @%speedmultiplier%
