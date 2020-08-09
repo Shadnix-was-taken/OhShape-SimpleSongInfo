@@ -51,8 +51,6 @@ namespace SimpleSongInfo
             for (int i = 0; i < SceneManager.sceneCount; i++)
             {
                 Scene scene = SceneManager.GetSceneAt(i);
-                MelonLogger.Log("Scene number " + i.ToString() + " is called: " + scene.name);
-                
                 if (scene.name == "GameScene") { isGameScene = true; }
             }
 
