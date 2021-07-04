@@ -7,7 +7,7 @@ A mod for OhShape that outputs some data about the currently played songs that s
 Get the latest release from the [Project Releases](https://github.com/Shadnix-was-taken/OhShape-SimpleSongInfo/releases) page.
 
 ## Installation and usage with OBS
-This mod requires MelonLoader in order work. You can find installation instructions and more information at:
+This mod requires MelonLoader 0.4.0 or newer in order work. You can find installation instructions and more information at:
 
 - [MelonLoader Wiki](https://melonwiki.xyz/)
 - [MelonLoader Github Repository](https://github.com/HerpDerpinstine/MelonLoader)
