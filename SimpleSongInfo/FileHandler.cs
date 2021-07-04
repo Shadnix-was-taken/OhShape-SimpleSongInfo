@@ -1,17 +1,12 @@
 ﻿using MelonLoader;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SimpleSongInfo
 {
     internal static class FileHandler
     {
-        internal static readonly string dataPath = Path.Combine(MelonLoaderBase.UserDataPath, BuildInfo.ShortName);
+        internal static readonly string dataPath = Path.Combine(MelonUtils.UserDataDirectory, BuildInfo.ShortName);
 
         internal static readonly string htmlFilePath = Path.Combine(dataPath, "simplesonginfo.html");
         internal static readonly string txtFilePath = Path.Combine(dataPath, "simplesonginfo.txt");
@@ -32,14 +27,14 @@ namespace SimpleSongInfo
             {
                 try
                 {
-                    MelonLogger.Log("Unable to find mod data directory, trying to create path '" + dataPath + "' ...");
+                    MelonLogger.Msg("Unable to find mod data directory, trying to create path '" + dataPath + "' ...");
                     Directory.CreateDirectory(dataPath);
-                    MelonLogger.Log("successful!");
+                    MelonLogger.Msg("successful!");
                 }
                 catch (Exception ex)
                 {
-                    MelonLogger.LogError(ex.ToString());
-                    MelonLogger.LogError("Unable to create mod data patch! Skipping file initialization.");
+                    MelonLogger.Error(ex.ToString());
+                    MelonLogger.Error("Unable to create mod data patch! Skipping file initialization.");
                     return;
                 }
             }
@@ -73,8 +68,8 @@ namespace SimpleSongInfo
             }
             catch (Exception ex)
             {
-                MelonLogger.LogError(ex.ToString());
-                MelonLogger.LogError("Unable to load empty HTML template file from disk. Using internal default instead.");
+                MelonLogger.Error(ex.ToString());
+                MelonLogger.Error("Unable to load empty HTML template file from disk. Using internal default instead.");
                 Mod.htmlEmptyInfo = Properties.Resources.simplesonginfo_template_empty_html;
             }
 
@@ -84,8 +79,8 @@ namespace SimpleSongInfo
             }
             catch (Exception ex)
             {
-                MelonLogger.LogError(ex.ToString());
-                MelonLogger.LogError("Unable to load song info HTML template file from disk. Using internal default instead.");
+                MelonLogger.Error(ex.ToString());
+                MelonLogger.Error("Unable to load song info HTML template file from disk. Using internal default instead.");
                 Mod.htmlSongInfo = Properties.Resources.simplesonginfo_template_song_html;
             }
 
@@ -95,8 +90,8 @@ namespace SimpleSongInfo
             }
             catch (Exception ex)
             {
-                MelonLogger.LogError(ex.ToString());
-                MelonLogger.LogError("Unable to load empty TXT template file from disk. Using internal default instead.");
+                MelonLogger.Error(ex.ToString());
+                MelonLogger.Error("Unable to load empty TXT template file from disk. Using internal default instead.");
                 Mod.txtEmptyInfo = Properties.Resources.simplesonginfo_template_empty_txt;
             }
 
@@ -106,8 +101,8 @@ namespace SimpleSongInfo
             }
             catch (Exception ex)
             {
-                MelonLogger.LogError(ex.ToString());
-                MelonLogger.LogError("Unable to load song info TXT template file from disk. Using internal default instead.");
+                MelonLogger.Error(ex.ToString());
+                MelonLogger.Error("Unable to load song info TXT template file from disk. Using internal default instead.");
                 Mod.txtSongInfo = Properties.Resources.simplesonginfo_template_song_txt;
             }
         }
@@ -129,15 +124,15 @@ namespace SimpleSongInfo
             }
             catch (Exception ex)
             {
-                MelonLogger.LogError(ex.ToString());
+                MelonLogger.Error(ex.ToString());
 
                 if (fileTemplateType == FileTemplateType.HTML)
                 {
-                    MelonLogger.LogError("Unable to write to status file '" + htmlFilePath + "'");
+                    MelonLogger.Error("Unable to write to status file '" + htmlFilePath + "'");
                 }
                 else if (fileTemplateType == FileTemplateType.TXT)
                 {
-                    MelonLogger.LogError("Unable to write to status file '" + txtFilePath + "'");
+                    MelonLogger.Error("Unable to write to status file '" + txtFilePath + "'");
                 }
             }
         }
@@ -148,14 +143,14 @@ namespace SimpleSongInfo
         {
             try
             {
-                MelonLogger.Log("Trying to copy file from resources to '" + target + "' ...");
+                MelonLogger.Msg("Trying to copy file from resources to '" + target + "' ...");
                 File.WriteAllText(target, resource);
-                MelonLogger.Log("successful!");
+                MelonLogger.Msg("successful!");
             }
             catch (Exception ex)
             {
-                MelonLogger.LogError(ex.ToString());
-                MelonLogger.LogError("Unable to write file! Skipping.");
+                MelonLogger.Error(ex.ToString());
+                MelonLogger.Error("Unable to write file! Skipping.");
                 return;
             }
         }

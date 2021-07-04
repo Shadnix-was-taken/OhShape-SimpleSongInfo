@@ -1,9 +1,4 @@
 ﻿using MelonLoader;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,7 +12,7 @@ namespace SimpleSongInfo
         public const string Description = "Outputs current song data to files which you can use for a stream overlay."; // Description for the Mod.  (Set as null if none)
         public const string Author = "Shadnix";                 // Author of the Mod.  (Set as null if none)
         public const string Company = null;                     // Company that made the Mod.  (Set as null if none)
-        public const string Version = "1.1.0";                  // Version of the Mod.  (MUST BE SET)
+        public const string Version = "1.2.0";                  // Version of the Mod.  (MUST BE SET)
         public const string DownloadLink = null;                // Download Link for the Mod.  (Set as null if none)
     }
 
@@ -37,13 +32,13 @@ namespace SimpleSongInfo
         // Initialize mod on startup
         public override void OnApplicationStart()
         {
-            MelonLogger.Log("OnApplicationStart called. Initializing " + BuildInfo.Name + "...");
+            MelonLogger.Msg("OnApplicationStart called. Initializing " + BuildInfo.Name + "...");
             Load();
         }
 
 
         // Gets called on scene change - check for current scene and updates files on disk if neccessary
-        public override void OnLevelWasInitialized(int level)
+        public override void OnSceneWasInitialized(int buildIndex, string sceneName)
         {
 
             // Check if game scene is active
@@ -79,7 +74,7 @@ namespace SimpleSongInfo
 
         public override void OnApplicationQuit()
         {
-            MelonLogger.Log("OnApplicationQuit called.");
+            MelonLogger.Msg("OnApplicationQuit called.");
         }
 
         private void Load()

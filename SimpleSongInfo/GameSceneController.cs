@@ -1,10 +1,7 @@
 ﻿using MelonLoader;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace SimpleSongInfo
@@ -20,38 +17,46 @@ namespace SimpleSongInfo
 
         private IEnumerator GetSongInformation()
         {
+
             GameInfo gameInfo = Resources.FindObjectsOfTypeAll<GameInfo>().FirstOrDefault();
             if (gameInfo == null)
             {
-                MelonLogger.LogError("Unable to get game info - quitting!");
-                yield return null;
+                MelonLogger.Error("Unable to get game info - quitting!");
+                yield break;
             }
 
-            //SongManager songManager = gameInfo._songManager;
-            //SongManager songManager = Util.ReflectionUtil.GetPrivateField<SongManager>(gameInfo, "_songManager");
-            yield return new WaitForSeconds(0.2f);
-            SongManager songManager = UnityEngine.Object.FindObjectOfType<SongManager>();
+            SongManager songManager = FindObjectOfType<SongManager>();
             if (songManager == null)
             {
-                MelonLogger.LogError("Unable to get song manager - quitting!");
-                yield return null;
+                int i = 0;
+                while (songManager == null)
+                {
+                    yield return new WaitForSeconds(0.2f);
+                    songManager = FindObjectOfType<SongManager>();
+                    i++;
+
+                    if (i > 50)
+                    {
+                        MelonLogger.Error("Unable to get song manager - quitting!");
+                        yield break;
+                    }
+                }
             }
 
             AlbumSongs_SO songData = songManager.CurrentSong;
             if (songData == null)
             {
-                MelonLogger.LogError("Unable to get song data - quitting!");
-                yield return null;
+                MelonLogger.Error("Unable to get song data - quitting!");
+                yield break;
             }
 
             // Prepare the data we can output
             string songAuthor = songData.Author;
             string songName = songData.Name;
-            string songDifficulty = songData.Levels[songManager.CurrentSongLevel].Difficulty.ToString();
+            string songDifficulty = WallDanceUtils.GetLocalizedText(songData.Levels[songManager.CurrentSongLevel].Difficulty.ToString().ToUpper());
             string songLength = TimeSpan.FromSeconds(songData.AudioTime).ToString(@"%m\:ss");
             string songAccuracyMultiplier = (1 / WallDanceUtils.CurrentPrecisionMultiplier).ToString("F1");
             string songSpeedMultiplier = WallDanceUtils.CurrentSpeedMultiplier.ToString("F1");
-            //string songObjectSpeed = songManager._objectsSpeed.ToString("F0");
             string songObjectSpeed = Util.ReflectionUtil.GetPrivateField<float>(songManager, "_objectsSpeed").ToString("F0");
 
             // Replace values in HTML template
@@ -73,6 +78,8 @@ namespace SimpleSongInfo
             // Output data to disk
             FileHandler.WriteSongInfo(htmlData, FileHandler.FileTemplateType.HTML);
             FileHandler.WriteSongInfo(txtData, FileHandler.FileTemplateType.TXT);
+
+            MelonLogger.Msg("Song info written to disk successfully for song name '" + songName + "' by '" + songAuthor + "'");
 
             yield return null;
         }
